@@ -33,13 +33,24 @@ export function CountryProvider({ children }: { children: ReactNode }) {
         setLoading(true);
 
         const res = await fetch("https://restcountries.com/v3.1/all");
+
+        if(!res.ok){
+          throw new Error(`Erra http: ${res.status}`)
+        }
+
         const data = await res.json(); 
 
+        if(!Array.isArray(data)){
+          throw new Error("Resposta invalida")
+        }
+
         console.log(" API:", data); 
+        
 
         setCountries(data); 
       } catch (err) {
-        setError(true); 
+        setError(true);
+        setCountries([]) 
       } finally {
         setLoading(false); 
       }
