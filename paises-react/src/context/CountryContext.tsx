@@ -29,8 +29,28 @@ export function CountryProvider({ children }: { children: ReactNode }) {
   //get
   useEffect(() => {
     async function loadCountries() {
+      setLoading(true);
+      setError(false);
+      //localStorage.removeItem("countries");
+      //verifica se tem cache local
+      const cached = localStorage.getItem("countries");
+      if (cached) {
+        try {
+          const data: Country[] = JSON.parse(cached);
+          setCountries(data);
+          setLoading(false);
+          return; 
+        } catch {
+          // se falhar ao parsear, remove cache e prossegue
+          localStorage.removeItem("countries");
+        }
+      }
+
+        //segue se nao houver cache
+
       try {
         setLoading(true);
+        setError(false);
 
         const res = await fetch("https://restcountries.com/v3.1/all");
 
@@ -39,6 +59,8 @@ export function CountryProvider({ children }: { children: ReactNode }) {
         }
 
         const data = await res.json(); 
+
+        localStorage.setItem("countries", JSON.stringify(data));
 
         if(!Array.isArray(data)){
           throw new Error("Resposta invalida")
