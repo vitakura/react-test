@@ -7,8 +7,28 @@ export default function CountryList() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedRegion, setSelectedRegion] = useState("All");
 
-  if (loading) return <p className="text-center mt-10">Carregando países...</p>;
-  if (error) return <p className="text-center text-red-500 mt-10">Erro ao carregar dados.</p>;
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-48">
+        <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
+  
+  if (error) {
+    return (
+      <div className="text-center mt-10">
+        <p className="text-red-500 mb-4">Erro ao carregar dados.</p>
+        <button
+          onClick={() => window.location.reload()}
+          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+        >
+          Tentar novamente
+        </button>
+      </div>
+    );
+  }
+  
 
   const filteredCountries = countries.filter((country) => {
     const matchesName = country.name.common
