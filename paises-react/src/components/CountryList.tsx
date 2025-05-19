@@ -5,12 +5,24 @@ import { useState } from "react";
 export default function CountryList() {
   const { countries, loading, error } = useCountries();
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedRegion, setSelectedRegion] = useState("All");
 
   if (loading) return <p className="text-center mt-10">Carregando países...</p>;
   if (error) return <p className="text-center text-red-500 mt-10">Erro ao carregar dados.</p>;
 
-  const filteredCountries = countries.filter((country) =>
-    country.name.common.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredCountries = countries.filter((country) => {
+    const matchesName = country.name.common
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
+
+    const matchesRegion =
+      selectedRegion === "All" || country.region === selectedRegion;
+
+    return matchesName && matchesRegion;
+  });
+
+  const allRegions = Array.from(
+    new Set(countries.map((c) => c.region).filter(Boolean))
   );
 
   return (
@@ -24,6 +36,19 @@ export default function CountryList() {
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
+
+<select
+        className="w-full p-2 border rounded mb-4"
+        value={selectedRegion}
+        onChange={(e) => setSelectedRegion(e.target.value)}
+      >
+        <option value="All">Todas as regiões</option>
+        {allRegions.map((region) => (
+          <option key={region} value={region}>
+            {region}
+          </option>
+        ))}
+      </select>
 
       <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
         {filteredCountries.map((country) => (
