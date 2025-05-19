@@ -56,3 +56,8 @@ npm run coverage
 
 Cobertura mínima atingida: >50% de linhas e funções.
 
+Instalar dependencias
+npm install 
+
+Rodar 
+npm run dev
