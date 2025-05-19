@@ -10,7 +10,9 @@ export default function CountryList() {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-48">
-        <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
+        <div
+          role="status"
+          className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
