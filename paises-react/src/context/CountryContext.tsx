@@ -1,9 +1,11 @@
 import { createContext, useContext, useEffect, useState, } from "react";
 import type { ReactNode } from "react";
+
 type Country = {
   name: {
     common:string;
   }
+  cca3:string;
 }
 
 type CountryContextType = {
@@ -19,6 +21,7 @@ export function CountryProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true); 
   const [error, setError] = useState(false);
 
+  //get
   useEffect(() => {
     async function loadCountries() {
       try {
@@ -27,7 +30,7 @@ export function CountryProvider({ children }: { children: ReactNode }) {
         const res = await fetch("https://restcountries.com/v3.1/all");
         const data = await res.json(); 
 
-        console.log("🌍 Dados da API:", data); 
+        console.log(" API:", data); 
 
         setCountries(data); 
       } catch (err) {
@@ -40,13 +43,14 @@ export function CountryProvider({ children }: { children: ReactNode }) {
     loadCountries(); 
   }, []);
 
+  //provider com dados prontos
   return (
     <CountryContext.Provider value={{ countries, loading, error }}>
       {children}
     </CountryContext.Provider>
   );
 }
-
+// hook para acessar o contexto com seguranca
 export function useCountries() {
   const context = useContext(CountryContext);
   if (!context) throw new Error("useCountries deve estar dentro de um CountryProvider");
