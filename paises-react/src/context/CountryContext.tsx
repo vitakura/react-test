@@ -2,10 +2,15 @@ import { createContext, useContext, useEffect, useState, } from "react";
 import type { ReactNode } from "react";
 
 type Country = {
-  name: {
-    common:string;
-  }
-  cca3:string;
+  name: { common: string };
+  region: string;
+  cca3: string;
+  flags: { png: string; alt?: string };
+  capital?: string[];
+  population: number;
+  languages?: Record<string, string>;
+  currencies?: Record<string, { name: string; symbol: string }>;
+  borders?: string[];
 }
 
 type CountryContextType = {
