@@ -12,7 +12,7 @@ Listar todos os países
 
 -Filtrar por região
 
--Paginar resultados (12 países por página)
+-Paginar resultados (60 países por página)
 
 -Exibir detalhes de cada país (bandeira, capital, população, línguas, moeda, fronteiras)
 
