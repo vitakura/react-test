@@ -1,54 +1,58 @@
-# React + TypeScript + Vite
+Desafio React – Victor Itakura de Oliveira  
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Mini‑aplicação em React 18+ que lista países consumindo a REST Countries API.
 
-Currently, two official plugins are available:
+ Descrição
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Esta aplicação permite ao usuário explorar informações sobre países:
 
-## Expanding the ESLint configuration
+Listar todos os países
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+-Buscar por nome
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+-Filtrar por região
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+-Paginar resultados (12 países por página)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+-Exibir detalhes de cada país (bandeira, capital, população, línguas, moeda, fronteiras)
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+-Spinner de carregamento e tratamento de erros com retry
+
+Decisões Técnicas
+
+-React 18+ com Function Components e Hooks: facilita gerenciamento de estado e efeitos colaterais.
+
+-TypeScript: adiciona tipagem estática e segurança.
+
+-Context API: gerencia globalmente a lista de países sem necessidade de Redux.
+
+-React Router v6: navegação entre lista e detalhe de país.
+
+-Fetch nativo + async/await: chamadas HTTP simples e legíveis.
+
+-Tailwind CSS: estilização rápida e responsiva (mobile-first).
+
+-LocalStorage: cache simples para evitar chamadas repetidas à API.
+
+-Jest + React Testing Library: testes unitários para lista, busca, loading e navegação.
+
+Limitações
+
+-Cache simples via LocalStorage, sem expiração configurada.
+
+-Sem modo claro/escuro implementado.
+
+-Paginação tradicional; infinite scroll não implementado, porem presente nos primeiros commits.
+
+-Sem testes de integração (e2e); apenas testes unitários.
+
+Testes
+
+# Executa todos os testes
+npm test
+
+# Gera relatório de cobertura
+npm run coverage
+
+Cobertura mínima atingida: >50% de linhas e funções.
+
